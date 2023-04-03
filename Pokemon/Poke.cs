@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleTables;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,80 @@ namespace Pokemon
 {
     class database
     {
-        public List<string> pokelist;
-        public Dictionary<string,string> pokeimg;
+        public List<Poke> Pokeball; //list of pokemon caught
+        public List<string> pokelist;  //list of pokemon names
+        public Dictionary<string,string> pokeimg; //pokemon ascii image
         public database(){
-            this.pokelist = new List<string>() { "Pikachu","Squirtle","Jigglypiff"};
+            this.Pokeball = new List<Poke>();
+            this.pokelist = new List<string>() { "Pikachu","Squirtle","Jigglypiff","Psyduck","Ditto","Bulbasaur","Eevee"};
             this.pokeimg = new Dictionary<string, string>();
-            
+            pokeimg.Add(pokelist[6], @"
+  ._                            _.-|
+  |_~~`--._                 _.-~   /
+    ~-._   ~-._.-~~~~~~~-.-~    _.~
+        ~-._ /             \_.-~ 
+            |  .-.   .-.   | 
+            |. |_| . |_|   |         __.-|
+            /    .__,      |    _.--~    |
+            \             /_--~~  \     / 
+            /~-._______.-~  \     |____|      
+           |  /         \    |        /
+            ~|_       |_|_-~~        / 
+             | ~-\_/-~    |        _~ 
+             |   |   |    /     _-~ 
+              |  |  /    |__---~ 
+              |,_|,_|____(");
+            pokeimg.Add(pokelist[5], @"
+              __....___ ,  .
+          _.-~ __...--~~ ~/\
+         / /  /          |  |
+        | |  |            \  \
+   _ _..---..-~\           |  | 
+  |  ~  .-~-.    \-.__      /  | 
+  /     \.-~        .-~-._/   // 
+ |/-. <| __  .-\    \     \_ //  
+ || o\   \/ /o  |    ~-.-~  \/         
+/  ~~        ~~              |      
+\__         ___--/   \  _-~-  \ 
+ / ~~--.--~~    /     |/   __  |
+|/\ \          |_~|   /    \|  |
+|\/  \__       /_-   /\        |
+|_ __| |`~-.__|_ _ _/  \ _ _ _/
+' '  ' ' ''   ' ' '     ' ` `");
+            pokeimg.Add(pokelist[4],
+                @"
+  /~\_.-~-._,--.._
+ |                ~-.._   
+  |     .     .        \
+  |                    / 
+  |     --....,       | \ 
+  /                      \
+ |                        |
+ |                        \
+ /                         |
+ \_.-._  __...___.._______/");
+            pokeimg.Add(pokelist[3],
+                @"
+                    // //  //
+          __    ____||_//  //
+        _/__--~~        ~~~-_
+       /  /___        ___    \
+      /  /(  +)      ( + )    |
+     /  |  ~~~    __  ~~~   _/\/|
+    |    \  ___.-~  ~-.___  \   / 
+     \    \(     ` '      ~~)|   \
+      \     )              / |    \
+       \/   /              \ |    |
+       /   |               | |    |
+      |    /               |  \__/
+      |    \_            _/      |    ___
+      \      ~----...---~       /_.-~~ _/
+       \_                      |    _-~ 
+         \                    /  _-~ 
+          ~-.__             _/--~
+         _.-~  ~~~-----~~~~~
+        ~-.-. _-~     /_ ._ \ 
+             ~       ~  ~  ~-");
             pokeimg.Add(pokelist[0],
                 @"
 .__                           __.
@@ -74,7 +143,7 @@ namespace Pokemon
     |              `-'              |
      \ \_  \                /  _/  /         
       \_ \_/                \_/  _/ 
-        \___                 ___/   Amw
+        \___                 ___/
         ..--\__           __/--..
       .~    __-~~~-----~~~-__    ~.
      (__.--~                 ~--.__)");
@@ -94,17 +163,16 @@ namespace Pokemon
     {
         public string name;
         public string type;
-        public int age;
         public Poke(string type)
         {
             this.type = type;
-            var rand = new Random();
-            this.age = rand.Next(10);
+            this.name = Askname(type);
         }
-        public void askname()
+        public string Askname(string type)
         {
-            Console.WriteLine("What would you like to name your pokemon?");
-            this.name = Console.ReadLine();
+            Console.WriteLine($"What would you like to name your {type}?");
+            string name = Console.ReadLine();
+            return name;
         }
 
 
